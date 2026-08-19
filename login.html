@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>LOGIN FORM</title>
+    </head>
+<body>
+      <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: blueviolet;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 10;
+    }
+
+    #login {
+      background:silver;
+      padding: 25px;
+      border-radius: 10px;
+      width: 300px;
+      text-align: center;
+    }
+
+    #login h2 {
+      margin-bottom: 20px;
+      color: blue; 
+    }
+
+    #login input[type="text"],
+    #login input[type="email"],
+    #login input[type="password"] {
+      width: 90%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    #login input[type="button"] {
+      width: 95%;
+      padding: 10px;
+      background: orangered; /* coffee brown */
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    #login input[type="button"]:hover {
+      background: seagreen; 
+    }
+
+    #login p {
+      color: green;
+      margin-bottom: 15px;
+    }
+  </style>
+  <section id="login">
+    <h2>Login</h2>
+    <p>Welcome to Coffee Corner</p>
+    <input type="text" placeholder="Your Name"><br>
+    <input type="email" placeholder="Your Email"><br>
+    <input type="password" placeholder="Your Password"><br>
+    <input type="button" value="Login">
+  </section>
+</body>
+</html>
