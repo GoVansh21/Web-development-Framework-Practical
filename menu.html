@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coffee Kaffee Menu</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: blueviolet;
+      color:#f4f1ea;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    header h1 {
+      color: white;
+      font-size: 2.5rem;
+      margin-bottom: 5px;
+    }
+
+    /* Controls: Search, Filter, Sort */
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+      margin-bottom: 30px;
+      background: rgb(170, 108, 229);
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    .controls input, .controls select {
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid blue;
+      border-radius: 5px;
+      outline: none;
+    }
+
+    .controls input {
+      flex: 1;
+      min-width: 200px;
+      max-width: 350px;
+    }
+
+    .coffee-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      color: #4a2c2a;
+      margin-bottom: 5px;
+    }
+
+    .category-badge {
+      display: inline-block;
+      background: #e0d5c1;
+      color: #4a2c2a;
+      padding: 3px 8px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      align-self: flex-start;
+    }
+
+    .card-desc {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 15px;
+      flex-grow: 1;
+    }
+
+    .card-price {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #2e7d32;
+    }
+
+    .no-results {
+      text-align: center;
+      grid-column: 1 / -1;
+      font-size: 1.2rem;
+      color: #777;
+      margin: 30px 0;
+    }
+
+    /* Pagination */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    .pagination button {
+      padding: 8px 16px;
+      font-size: 1rem;
+      border: none;
+      background-color: red;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .pagination button:disabled {
+      background-color: red;
+      cursor: not-allowed;
+    }
+
+    .page-info {
+      font-weight: bold;
+    }
+          footer {
+ background-color:blueviolet;
+      padding: 20px;
+      position: relative;
+    }
+        footer {
+      background-color: blueviolet;
+      color: #fff;
+      padding: 25px 25px;
+      text-align: center;
+    }
+
+    footer .social {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 20px 0;
+    }
+
+    footer .social li {
+      display: inline-block;
+      margin: 0 10px;
+    }
+
+    footer .social a {
+      color:white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer .social a:hover {
+      color: orangered;
+    }
+
+    footer i {
+      font-size: 25px;
+      margin: 10px;
+      color: goldenrod;
+    }
+
+    footer i:hover {
+      color: aqua;
+    }
+
+    footer .contact {
+      margin: 10px 0;
+      font-size: 20px;
+    }
+
+    footer .kk {
+      margin-top: 10px;
+      font-size: 25px;
+      color: black;
+      font-weight: bold;
+    }
+        .kk {
+      font-size: 28px;
+      font-weight: bold;
+      color: rgb(56, 0, 0);
+      background: lightyellow;
+      padding: 15px 25px;
+      border-radius: 8px;
+      display: inline-block;
+      transition: transform 0.3s, background 0.3s;
+    }
+
+   .kk:hover {
+      transform: scale(1.1);
+      background:green;
+      color:whitesmoke;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Coffee Kaffee Cafe Menu</h1>
+    <p>Find Your Day</p>
+  </header>
+
+  <!-- Controls Section -->
+  <div class="controls">
+    <input type="text" id="searchInput" placeholder="Search coffee by name or description...">
+    
+    <select id="categoryFilter">
+      <option value="All">All Categories</option>
+      <option value="Hot Coffee">Hot Coffee</option>
+      <option value="Cold Coffee">Cold Coffee</option>
+      <option value="Specialty">Specialty</option>
+    </select>
+
+    <select id="sortOrder">
+      <option value="default">Sort By Price</option>
+      <option value="low-to-high">Price: Low to High</option>
+      <option value="high-to-low">Price: High to Low</option>
+    </select>
+  </div>
+
+  <!-- Coffee Grid Container -->
+  <div class="coffee-container" id="coffeeContainer"></div>
+
+  <!-- Pagination Controls -->
+  <div class="pagination">
+    <button id="prevBtn">Previous</button>
+    <span class="page-info" id="pageInfo">Page 1</span>
+    <button id="nextBtn">Next</button>
+  </div>
+
+  <script>
+    // 10 Coffee Items Data Array
+    const coffeeData = [
+      { id: 1, name: "Espresso", category: "Hot Coffee", price: 375, description: "Strong and concentrated shot of pure coffee.", image: "https://th.bing.com/th/id/OIP.iZ_rvgPxWqWTSX9_WfDONAHaHa?w=177&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" },
+      { id: 2, name: "Cappuccino", category: "Hot Coffee", price: 550, description: "Rich espresso topped with steamed milk and deep foam layer.", image: "https://th.bing.com/th/id/OIP.TPUVsornBDkHnk36cmiXPwHaFx?w=259&h=201&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" },
+      { id: 3, name: "Caffè Latte", category: "Hot Coffee", price: 375, description: "Espresso mixed with a generous amount of steamed milk.", image: "https://th.bing.com/th/id/OIP.n8Jo-jM0_avApNIffm060AHaEM?w=303&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" },
+      { id: 4, name: "Iced Caramel Macchiato", category: "Cold Coffee", price: 530, description: "Espresso combined with vanilla syrup, milk, ice, and caramel drizzle.", image: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=500" },
+      { id: 5, name: "Cold Brew", category: "Cold Coffee", price: 200, description: "Slow-steeped coffee served cold for a smooth, rich taste.", image: "https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=500" },
+      { id: 6, name: "Mocha Frappuccino", category: "Specialty", price: 300, description: "Blended coffee with chocolate syrup, ice, whipped cream.", image: "https://th.bing.com/th/id/OIP.G-02sykgWQTOF9zitGcJMQHaHa?w=170&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" },
+      { id: 7, name: "Americano", category: "Hot Coffee", price: 325, description: "Espresso shots topped with hot water to create a light layer of crema.", image: "https://www.mysticmonkcoffee.com/cdn/shop/articles/americano_coffee_2000x.png?v=1706611607" },
+      { id: 8, name: "Matcha Latte", category: "Specialty", price: 425, description: "Smooth green tea powder whisked with steamed milk.", image: "https://images.unsplash.com/photo-1536256263959-770b48d82b0a?w=500" },
+      { id: 9, name: "Affogato", category: "Specialty", price: 320, description: "A scoop of vanilla ice cream drowned in a hot shot of espresso.", image: "https://images.unsplash.com/photo-1592663527359-cf6642f54cff?w=500" },
+      { id: 10, name: "Iced Nitro Coffee", category: "Cold Coffee", price: 430, description: "Cold brew infused with nitrogen for a creamy, velvety texture.", image: "https://images.unsplash.com/photo-1522992319-0365e5f11656?w=500" }
+    ];
+
+    // Pagination Settings
+    let currentPage = 1;
+    const itemsPerPage = 4; // Displays 4 cards per page
+
+    // DOM Elements
+    const container = document.getElementById('coffeeContainer');
+    const searchInput = document.getElementById('searchInput');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const sortOrder = document.getElementById('sortOrder');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const pageInfo = document.getElementById('pageInfo');
+
+    // Main Function to Filter, Sort, and Paginate Data
+    function processAndRenderMenu() {
+      const searchTerm = searchInput.value.toLowerCase();
+      const selectedCategory = categoryFilter.value;
+      const selectedSort = sortOrder.value;
+
+      // 1. Filter by Search and Category
+      let filteredData = coffeeData.filter(item => {
+        const matchesSearch = item.name.toLowerCase().includes(searchTerm) || 
+                              item.description.toLowerCase().includes(searchTerm);
+        const matchesCategory = selectedCategory === "All" || item.category === selectedCategory;
+        return matchesSearch && matchesCategory;
+      });
+
+      // 2. Sort by Price
+      if (selectedSort === "low-to-high") {
+        filteredData.sort((a, b) => a.price - b.price);
+      } else if (selectedSort === "high-to-low") {
+        filteredData.sort((a, b) => b.price - a.price);
+      }
+
+      // 3. Paginate
+      const totalPages = Math.ceil(filteredData.length / itemsPerPage) || 1;
+      if (currentPage > totalPages) currentPage = totalPages;
+
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const paginatedData = filteredData.slice(startIndex, startIndex + itemsPerPage);
+
+      // Render items
+      renderCards(paginatedData);
+
+      // Update Pagination Info
+      pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+      prevBtn.disabled = currentPage === 1;
+      nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+    }
+
+    // Render Coffee Cards into DOM
+    function renderCards(data) {
+      container.innerHTML = "";
+
+      if (data.length === 0) {
+        container.innerHTML = `<p class="no-results">No coffee items match your search/filter criteria.</p>`;
+        return;
+      }
+
+      data.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <img src="${item.image}" alt="${item.name}">
+          <div class="card-content">
+            <h3 class="card-title">${item.name}</h3>
+            <span class="category-badge">${item.category}</span>
+            <p class="card-desc">${item.description}</p>
+            <div class="card-price">₹${item.price.toFixed(2)}</div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Event Listeners for Filters/Search
+    searchInput.addEventListener('input', () => {
+      currentPage = 1;
+      processAndRenderMenu();
+    });
+
+    categoryFilter.addEventListener('change', () => {
+      currentPage = 1;
+      processAndRenderMenu();
+    });
+
+    sortOrder.addEventListener('change', () => {
+      processAndRenderMenu();
+    });
+
+    // Event Listeners for Pagination Buttons
+    prevBtn.addEventListener('click', () => {
+      if (currentPage > 1) {
+        currentPage--;
+        processAndRenderMenu();
+      }
+    });
+
+    nextBtn.addEventListener('click', () => {
+      currentPage++;
+      processAndRenderMenu();
+    });
+
+    // Initial Render
+    processAndRenderMenu();
+  </script>
+  <footer>
+    <ul class="social">
+      <hr>
+      <i class="fa-sharp fa-solid fa-envelope"></i><li><a href="story.html">OUR STORY</a></li> <br>
+      <i class="fa-sharp fa-solid fa-user"></i><li><a href="found.html">KAFFEE COFFEE FOUNDATION</a></li>
+    </ul>
+
+    <hr>
+
+    <div>
+      <i class="fa-brands fa-instagram"></i>
+      <i class="fa-brands fa-facebook"></i>
+      <i class="fa-brands fa-google"></i>
+      <i class="fa-brands fa-youtube"></i>
+    </div>
+
+    <div class="contact">
+      <i class="fa fa-phone"></i> Call Now! 1111-222-33
+    </div>
+
+    <p>&copy; 2026 Kaffee Coffee Cafe</p>
+  </footer>
+</body>
+</html>
