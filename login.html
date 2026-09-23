@@ -1,70 +1,143 @@
 <!DOCTYPE html>
-<html>
-    <head>
-    <title>LOGIN FORM</title>
-    </head>
-<body>
-      <style>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Kaffee Coffee Cafe</title>
+  <style>
     body {
-      font-family: Arial, sans-serif;
-      background: blueviolet;
+      font-family: 'Segoe UI', sans-serif;
+      background: rgb(129, 129, 207);
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      margin: 10;
+      min-height: 100vh;
+      margin: 0;
     }
-
-    #login {
-      background:silver;
+    form {
+      background:white;
       padding: 25px;
       border-radius: 10px;
-      width: 300px;
+      width: 350px;
+    }
+    h2 {
       text-align: center;
+      color: #6f4e37;
     }
-
-    #login h2 {
-      margin-bottom: 20px;
-      color: blue; 
-    }
-
-    #login input[type="text"],
-    #login input[type="email"],
-    #login input[type="password"] {
-      width: 90%;
+    input {
+      width: 95%;
       padding: 10px;
       margin: 8px 0;
       border: 1px solid #ccc;
       border-radius: 5px;
     }
-
-    #login input[type="button"] {
-      width: 95%;
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 10px;
+      color: #3e2723;
+    }
+    button {
+      width: 100%;
       padding: 10px;
-      background: orangered; /* coffee brown */
+      background:orangered;
       color: white;
       border: none;
       border-radius: 5px;
       cursor: pointer;
       font-weight: bold;
     }
-
-    #login input[type="button"]:hover {
-      background: seagreen; 
+    button:hover {
+      background: blue;
     }
-
-    #login p {
-      color: green;
-      margin-bottom: 15px;
+    .error {
+      color: red;
+      font-size: 0.9em;
     }
   </style>
-  <section id="login">
-    <h2>Login</h2>
-    <p>Welcome to Coffee Corner</p>
-    <input type="text" placeholder="Your Name"><br>
-    <input type="email" placeholder="Your Email"><br>
-    <input type="password" placeholder="Your Password"><br>
-    <input type="button" value="Login">
-  </section>
+</head>
+<body>
+
+  <form id="registrationForm" action="prac2.html" method="post">
+    <h2>Kaffee Coffee Cafe Login</h2>
+
+    <label for="name">Name</label>
+    <input type="text" id="name" placeholder="Enter your name">
+    <span class="error" id="nameError"></span>
+
+    <label for="email">Email</label>
+    <input type="email" id="email" placeholder="Enter your email">
+    <span class="error" id="emailError"></span>
+
+    <label for="mobile">Mobile Number</label>
+    <input type="tel" id="mobile" placeholder="10-digit mobile number">
+    <span class="error" id="mobileError"></span>
+
+    <label for="password">Password</label>
+    <input type="password" id="password" placeholder="Create a password">
+    <span class="error" id="passwordError"></span>
+
+    <label>
+      <input type="checkbox" id="terms"> I accept 
+    </label>
+    <span class="error" id="termsError"></span>
+
+    <button type="submit">Register</button>
+  </form>
+
+  <script>
+    const form = document.getElementById("registrationForm");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+      let valid = true;
+
+      // Regex patterns
+      const namePattern = /^[A-Za-z\s]{3,}$/;
+      const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+      const mobilePattern = /^[6-9]\d{9}$/;
+      const passwordPattern = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+
+      // Name validation
+      const name = document.getElementById("name").value;
+      if (!namePattern.test(name)) {
+        document.getElementById("nameError").textContent = "Enter a valid name (min 3 letters).";
+        valid = false;
+      } else document.getElementById("nameError").textContent = "";
+
+      // Email validation
+      const email = document.getElementById("email").value;
+      if (!emailPattern.test(email)) {
+        document.getElementById("emailError").textContent = "Enter a valid email.";
+        valid = false;
+      } else document.getElementById("emailError").textContent = "";
+
+      // Mobile validation
+      const mobile = document.getElementById("mobile").value;
+      if (!mobilePattern.test(mobile)) {
+        document.getElementById("mobileError").textContent = "Enter a valid 10-digit mobile number.";
+        valid = false;
+      } else document.getElementById("mobileError").textContent = "";
+
+      // Password validation
+      const password = document.getElementById("password").value;
+      if (!passwordPattern.test(password)) {
+        document.getElementById("passwordError").textContent = "Password must have 6+ chars, 1 uppercase, 1 number, 1 special char.";
+        valid = false;
+      } else document.getElementById("passwordError").textContent = "";
+
+      // Terms validation
+      const terms = document.getElementById("terms").checked;
+      if (!terms) {
+        document.getElementById("termsError").textContent = "You must accept the terms.";
+        valid = false;
+      } else document.getElementById("termsError").textContent = "";
+
+      if (valid) {
+        alert("Registration Successful! Welcome to Coffee Café ");
+        form.reset();
+      }
+    });
+  </script>
+
 </body>
 </html>
