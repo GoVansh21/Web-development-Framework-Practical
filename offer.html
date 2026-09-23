@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Kaffee Coffee Cafe</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      transition: background 0.3s, color 0.3s;
+      background:lightskyblue;
+      color:#f5f5f5;
+    }
+    header {
+      background:blueviolet;
+      color: #fff;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .hamburger {
+      cursor: pointer;
+      font-size: 26px;
+    }
+    nav {
+      display: none;
+      background: rgb(128, 128, 235);
+      padding: 10px;
+    }
+    nav a {
+      color: #fff;
+      display: block;
+      margin: 8px 0;
+      text-decoration: none;
+    }
+    .banner {
+      background: orange;
+      color: #fff;
+      text-align: center;
+      padding: 12px;
+      display: none;
+      font-weight: bold;
+    }
+    .faq {
+      margin: 20px;
+    }
+    .faq-item {
+      margin-bottom: 12px;
+    }
+    .faq-question {
+      cursor: pointer;
+      background:green;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .faq-answer {
+      display: none;
+      padding: 10px;
+      background: pink;
+      border-left: 3px solid #d2691e;
+    }
+    .slider {
+      position: relative;
+      max-width: 500px;
+      margin: 30px auto;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .slides img {
+      width: 100%;
+      display: none;
+    }
+    .slides img.active {
+      display: block;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background:blueviolet;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: rgb(139, 139, 233);
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .theme-toggle {
+      margin: 20px;
+      padding: 10px 15px;
+      cursor: pointer;
+      background: #5c3d2e;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+    }
+    .dark {
+      background: #2c1e1e;
+      color: #f5f5f5;
+    }
+    .dark header {
+      background:blueviolet;
+    }
+    .dark nav {
+      background: #2c1e1e;
+    }
+    .dark .faq-question {
+      background: green;
+      color: #fff;
+    }
+    .dark .faq-answer {
+      background: #fff3e6;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header with Hamburger -->
+  <header>
+    <h1>Kaffee Coffee Cafe</h1>
+    <div class="hamburger">☰</div>
+  </header>
+  <nav>
+    <a href="prac2.html">Home</a>
+    <a href="menu.html">Menu</a>
+    <a href="story.html">Our Story</a>
+  </nav>
+
+  <!-- Notification Banner -->
+  <div class="banner">MAKE YOUR LIFE BETTER WITH OUR COFFEE!</div>
+
+  <!-- FAQ Section -->
+  <section class="faq">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item">
+      <div class="faq-question">What makes our coffee special?</div>
+      <div class="faq-answer">We source ethically grown beans and roast them fresh every morning for rich flavor.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Do you offer dairy-free options?</div>
+      <div class="faq-answer">Yes! We have almond, oat, and soy milk alternatives for all drinks.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Can I order online?</div>
+      <div class="faq-answer">Absolutely. Place your order through our website and pick it up at the café.</div>
+    </div>
+  </section>
+
+  <!-- Image Slider -->
+  <div class="slider">
+    <div class="slides">
+      <img src="https://th.bing.com/th/id/OIP.iZ_rvgPxWqWTSX9_WfDONAHaHa?w=177&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" class="active">
+      <img src="https://th.bing.com/th/id/OIP.n8Jo-jM0_avApNIffm060AHaEM?w=303&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3">
+      <img src="https://www.mysticmonkcoffee.com/cdn/shop/articles/americano_coffee_2000x.png?v=1706611607">
+    </div>
+  </div>
+
+  <!-- Modal Popup -->
+  <button id="openModal">Special Offer</button>
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <h3>Coffee & Sandwich Combo</h3>
+      <p>Get a free sandwich with every cappuccino this week!</p>
+      <button id="closeModal">Close</button>
+    </div>
+  </div>
+
+  <!-- Theme Switcher -->
+  <button class="theme-toggle" id="themeToggle">Switch Theme</button>
+
+  <script>
+    // Hamburger Menu
+    const hamburger = document.querySelector('.hamburger');
+    const nav = document.querySelector('nav');
+    hamburger.addEventListener('click', () => {
+      nav.style.display = nav.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // Notification Banner
+    const banner = document.querySelector('.banner');
+    window.onload = () => {
+      banner.style.display = 'block';
+      setTimeout(() => banner.style.display = 'none', 4000);
+    };
+
+    // Collapsible FAQ
+    document.querySelectorAll('.faq-question').forEach(q => {
+      q.addEventListener('click', () => {
+        const answer = q.nextElementSibling;
+        answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+      });
+    });
+
+    // Image Slider
+    const slides = document.querySelectorAll('.slides img');
+    let index = 0;
+    setInterval(() => {
+      slides[index].classList.remove('active');
+      index = (index + 1) % slides.length;
+      slides[index].classList.add('active');
+    }, 2500);
+
+    // Modal Popup
+    const modal = document.getElementById('modal');
+    document.getElementById('openModal').addEventListener('click', () => {
+      modal.style.display = 'flex';
+    });
+    document.getElementById('closeModal').addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+
+    // Theme Switcher
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+    });
+  </script>
+
+</body>
+</html>
