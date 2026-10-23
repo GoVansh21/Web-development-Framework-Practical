@@ -1,0 +1,125 @@
+# index.html
+<!DOCTYpe html>
+<html="en">
+    <head>
+        <title>Website</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+       <form id="registrationForm" method="post">
+    <h2>Login</h2>
+
+    <label for="name">Student Name</label>
+    <input type="text" id="name" placeholder="Enter your name">
+    <span class="error" id="nameError"></span>
+
+    <label for="c">Course Name</label>
+    <input type="c" id="" placeholder="Enter your course name">
+    <span class="error" id="courseError"></span>
+
+    <label for="m">Faculty Name</label>
+    <input type="tel" id="fac" placeholder="Enter your Faculty Name">
+    <span class="error" id="fError"></span>
+
+    <label for="tr">Teaching Rating</label>
+    <input type="password" id="tr" placeholder="Enter your Teaching Ratings">
+    <span class="error" id="teachError"></span>
+
+ <label for="tr">Practical/ Lab Rating</label>
+    <input type="password" id="plr" placeholder="Enter your Practical/Lab Rating">
+    <span class="error" id="plrError"></span>
+
+    <label for="tr">Content Rating</label>
+    <input type="text" id="cr" placeholder="Enter your Content Rating">
+    <span class="error" id="contentratingError"></span>
+    
+
+    <input type="button">Register<input/>
+  </form>
+   
+    </body>
+
+# style.css
+*{
+background: rgb(129, 129, 207);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    form {
+      background:white;
+      padding: 25px;
+      border-radius: 10px;
+      width: 350px;
+    }
+  
+    input {
+      width: 95%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 10px;
+      color: #3e2723;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background:orangered;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background: blue;
+    }
+# script.js
+
+
+function calculateaverage(teaching_rating,practical_lab_rating,content_rating){
+let teaching_rating = 3;
+let practical_lab_rating= 4;
+let content_rating=4.5;
+
+var result= teaching_rating + practical_lab_rating + content_rating / 3;
+console.log(" THE RESULTS OF THIS: ", result);
+}
+
+function calculatepercentage(teaching_rating,practical_lab_rating,content_rating){
+let teaching_rating = 3;
+let practical_lab_rating= 4;
+let content_rating=4.5;
+var result= teaching_rating + practical_lab_rating + content_rating / 3 
+var per= result % 100;
+console.log(" THE PERCENTAGE OF THIS: ", per);
+
+}
+
+function getclassification(teaching_rating,practical_lab_rating,content_rating)
+{
+let teaching_rating = 3;
+let practical_lab_rating= 4;
+let content_rating=4.5;
+var result= teaching_rating + practical_lab_rating + content_rating
+
+if result > 4.50 & result < 5.00:
+console.log("excellent");
+else if result > 3.50 & result < 4.49:
+console.log("very good");
+if result > 2.50 & result < 3.49:
+console.log("good");
+if result > 1.50 & result < 2.49:
+console.log("needs improvement");
+if result < 1.50:
+console.log("poor");
+}
+        
+</html>
